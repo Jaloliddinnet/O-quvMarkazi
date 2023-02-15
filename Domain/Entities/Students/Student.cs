@@ -13,11 +13,12 @@ namespace Domain.Entities.Students
         public string LastName { get; set; }
         public List<Dedline> Dedline { get; set; }
         public List<Payment> payments { get; set; }
+        public List<Jamolar> groups { get; set; }
         public Student() 
         {
             Dedline= new List<Dedline>();
             payments= new List<Payment>();
-        
+            groups= new List<Jamolar>();
         }
 
     }
