@@ -13,6 +13,7 @@ namespace Domain.Entities.Groups
         public int Id { get; set; }
         public string GroupName { get; set; }
         public string Description { get; set; }
+        public string GroupDey { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
         public Teacher Teacher { get; set; }
         public List<Student> Students { get; set; }
