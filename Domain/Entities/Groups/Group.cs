@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities.Groups
 {
-    public class Group
+    public class Jamolar
     {
         public int Id { get; set; }
         public string GroupName { get; set; }
@@ -16,8 +16,8 @@ namespace Domain.Entities.Groups
         public string GroupDey { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
         public Teacher Teacher { get; set; }
-        public List<Student> Students { get; set; }
-        public Group() 
+        public virtual List<Student> Students { get; set; }
+        public Jamolar()
         {
             Students = new List<Student>();
         }

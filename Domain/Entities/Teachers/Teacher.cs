@@ -14,10 +14,11 @@ namespace Domain.Entities.Teachers
         public string HomeLocation { get; set; }
         public List<Dedline> Dedline { get; set; }
         public List<Payment> Payment { get; set; }
-        public List<Group> Groups { get; set; }
+        public virtual List<Jamolar> Groups { get; set; }
         public Teacher() 
         {
-            Groups= new List<Group>();
+         
+            Groups= new List<Jamolar>();
             Dedline = new List<Dedline>();
             Payment = new List<Payment>();
         }
