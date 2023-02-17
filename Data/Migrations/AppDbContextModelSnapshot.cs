@@ -185,6 +185,10 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("rols")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("passvords");
@@ -220,28 +224,6 @@ namespace Data.Migrations
                     b.HasIndex("studentId");
 
                     b.ToTable("payment");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Rols.Rol", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("PassvordId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RolName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PassvordId");
-
-                    b.ToTable("rol");
                 });
 
             modelBuilder.Entity("Domain.Entities.Students.Student", b =>
@@ -342,17 +324,6 @@ namespace Data.Migrations
                     b.Navigation("student");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Rols.Rol", b =>
-                {
-                    b.HasOne("Domain.Entities.Passvords.Passvord", "Passvord")
-                        .WithMany("rols")
-                        .HasForeignKey("PassvordId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Passvord");
-                });
-
             modelBuilder.Entity("JamolarStudent", b =>
                 {
                     b.HasOne("Domain.Entities.Students.Student", null)
@@ -366,11 +337,6 @@ namespace Data.Migrations
                         .HasForeignKey("groupsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.Entities.Passvords.Passvord", b =>
-                {
-                    b.Navigation("rols");
                 });
 
             modelBuilder.Entity("Domain.Entities.Students.Student", b =>
