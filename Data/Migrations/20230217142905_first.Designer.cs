@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230215140030_dedline")]
-    partial class dedline
+    [Migration("20230217142905_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -136,6 +136,39 @@ namespace Data.Migrations
                     b.ToTable("Dedline");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Groups.Jamolar", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GroupDey")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("group");
+                });
+
             modelBuilder.Entity("Domain.Entities.Passvords.Passvord", b =>
                 {
                     b.Property<int>("Id")
@@ -152,6 +185,10 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("rols")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -190,28 +227,6 @@ namespace Data.Migrations
                     b.HasIndex("studentId");
 
                     b.ToTable("payment");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Rols.Rol", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("PassvordId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RolName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PassvordId");
-
-                    b.ToTable("rol");
                 });
 
             modelBuilder.Entity("Domain.Entities.Students.Student", b =>
@@ -260,6 +275,21 @@ namespace Data.Migrations
                     b.ToTable("teachers");
                 });
 
+            modelBuilder.Entity("JamolarStudent", b =>
+                {
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("groupsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentsId", "groupsId");
+
+                    b.HasIndex("groupsId");
+
+                    b.ToTable("JamolarStudent");
+                });
+
             modelBuilder.Entity("Domain.Entities.Dedlines.Dedline", b =>
                 {
                     b.HasOne("Domain.Entities.Students.Student", null)
@@ -269,6 +299,17 @@ namespace Data.Migrations
                     b.HasOne("Domain.Entities.Teachers.Teacher", null)
                         .WithMany("Dedline")
                         .HasForeignKey("TeacherId");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Groups.Jamolar", b =>
+                {
+                    b.HasOne("Domain.Entities.Teachers.Teacher", "Teacher")
+                        .WithMany("Groups")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("Domain.Entities.Payments.Payment", b =>
@@ -286,20 +327,19 @@ namespace Data.Migrations
                     b.Navigation("student");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Rols.Rol", b =>
+            modelBuilder.Entity("JamolarStudent", b =>
                 {
-                    b.HasOne("Domain.Entities.Passvords.Passvord", "Passvord")
-                        .WithMany("rols")
-                        .HasForeignKey("PassvordId")
+                    b.HasOne("Domain.Entities.Students.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Passvord");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Passvords.Passvord", b =>
-                {
-                    b.Navigation("rols");
+                    b.HasOne("Domain.Entities.Groups.Jamolar", null)
+                        .WithMany()
+                        .HasForeignKey("groupsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.Students.Student", b =>
@@ -312,6 +352,8 @@ namespace Data.Migrations
             modelBuilder.Entity("Domain.Entities.Teachers.Teacher", b =>
                 {
                     b.Navigation("Dedline");
+
+                    b.Navigation("Groups");
 
                     b.Navigation("Payment");
                 });
