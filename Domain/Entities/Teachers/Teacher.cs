@@ -22,5 +22,10 @@ namespace Domain.Entities.Teachers
             Dedline = new List<Dedline>();
             Payment = new List<Payment>();
         }
+
+        public static implicit operator Teacher(global::Data.Migrations.Teacher v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
