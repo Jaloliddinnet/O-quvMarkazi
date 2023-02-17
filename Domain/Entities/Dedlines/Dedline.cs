@@ -13,7 +13,7 @@ namespace Domain.Entities.Dedlines
         public string DedlineUrl { get; set; }
         public int GroupId { get; set; }
         public string DedlineInfo { get; set; }
-        public DateTime Time { get; set; } = DateTime.Now;
+        public DateTime Time { get; set; } 
         public TimeSpan DedlineTime { get; set; }
     }
 }
