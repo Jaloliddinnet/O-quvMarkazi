@@ -14,7 +14,7 @@ namespace Domain.Entities.Groups
         public string GroupName { get; set; }
         public string Description { get; set; }
         public string GroupDey { get; set; }
-        public DateTime Created { get; set; } = DateTime.Now;
+        public DateTime Created { get; set; } 
         public Teacher Teacher { get; set; }
         public virtual List<Student> Students { get; set; }
         public Jamolar()
