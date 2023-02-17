@@ -7,7 +7,7 @@ namespace Domain.Entities.Payments
     {
         public int Id { get; set; }
         public int PaymentMany { get; set; }
-        public DateTime PaymentData { get; set; } = DateTime.Now;
+        public DateTime PaymentData { get; set; } 
         public bool ChakPoint { get; set; }
         public Student student { get; set; }
     }
