@@ -16,7 +16,6 @@ namespace service.Services.Administrator.GroupAdds
                 Teacher = teachers,
 
             };
-
         }
     }
 }
