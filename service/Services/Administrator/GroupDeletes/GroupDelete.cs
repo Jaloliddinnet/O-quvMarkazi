@@ -9,8 +9,9 @@ namespace service.Services.Administrator.GroupDeletes
 {
     public static  class GroupDelete
     {
-        public static void GDelete(AppDbContext db, string GName)
+        public static void GDelete( string GName)
         {
+            AppDbContext db = new AppDbContext();
             var res = db.group.FirstOrDefault(p => p.GroupName == GName);
             db.group.Remove(res);
             db.SaveChanges();
