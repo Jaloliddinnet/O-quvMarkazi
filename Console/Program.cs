@@ -1,5 +1,4 @@
-﻿using Data.Migrations;
-using Data.O_quvMarkaziDbContext;
+﻿using Data.O_quvMarkaziDbContext;
 using Domain.Entities.Administrators;
 using Domain.Entities.Dedlines;
 using Domain.Entities.Groups;
@@ -8,7 +7,6 @@ using Domain.Entities.Payments;
 using Domain.Entities.Students;
 using Domain.Entities.Teachers;
 using Microsoft.EntityFrameworkCore;
-using System.Text.RegularExpressions;
 
 AppDbContext db = new AppDbContext();
 
@@ -495,6 +493,11 @@ else if (res.rols == "Student")
                     grp.groups.ForEach(p => Console.WriteLine($"{p.GroupName}"));
                     break;
                 }
+            case 2:
+                {
+
+                    break;
+                }
 
         }
     }
@@ -505,8 +508,6 @@ static void StudentMenyu()
     Console.WriteLine("1 - Group");
     Console.WriteLine("2 - Dedline");
 }
-
-
 static void TeacherMenyu()
 {
     Console.WriteLine("1 - Group");
@@ -523,14 +524,12 @@ static void AdministratorMenyu()
     Console.WriteLine("6 - Group add students");
     Console.WriteLine("7 - Add Payment");
 }
-
 static void GrupKomn()
 {
     Console.WriteLine("add - Add Group");
     Console.WriteLine("update - Update group");
     Console.WriteLine("delete - delete ");
 }
-
 static void Passvord()
 {
     Console.WriteLine("1 - Administrator");
